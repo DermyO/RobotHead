@@ -1,7 +1,20 @@
 # RobotHead
 Based on the intraface tool, it allows to have a simple robotic head that changes its expression following its partner's one.
 
-#How to use it
+# INSTALL
+It prerequired to have install intraface that are no longer available on their website (?)
+In a terminal, go to the intraface folder and then:
+"geany makefile"
+(geany or an other application) then, replace the code with the one I give you. Save and quit.
+"cd src"
+here, paste the robot_s_head.cpp file.
+"cd ../"
+"make"
+
+# USE
+You just have to launch "./Robot_s_head" in the intraface folder, and then enjoy!
+
+# Wich modifications has been done 
 You have to install intraface, following these instructions http://humansensing.cs.cmu.edu/intraface/download_functions_cpp.html.
 Then, you can add the "DemoTracker_modified_OnlySomePointsDisplay.cpp" and launch it.
 
