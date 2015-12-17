@@ -2,7 +2,7 @@
 Based on the intraface tool, it allows to have a simple robotic head that changes its expression following its partner's one.
 
 # INSTALL
-It prerequired to have install intraface that are no longer available on their website (?)
+This requires to have install intraface that are no longer available on their website (?)
 In a terminal, go to the intraface folder and then:
 "geany makefile"
 (geany or an other application) then, replace the code with the one I give you. Save and quit.
