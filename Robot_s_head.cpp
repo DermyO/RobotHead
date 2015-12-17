@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-/// DemoTracker_modified_OnlySomePointsDisplay.cpp
+/// Robot_s_head.cpp
 /// 
 /// Description:
 /// This program is based on the "DemoTracker.cpp. It gives a simple head that will be applied to a robot.
