@@ -2,10 +2,14 @@
 Based on the intraface tool, it allows to have a simple robotic head that changes its expression following its partner's one.
 
 # INSTALL
-This requires to have install intraface that are no longer available on their website (?)
+This requires to have installed intraface that are no longer available on their website (it was the version IntraFace (Live) v1.2 (7/19/2013) I think: http://humansensing.cs.cmu.edu/intraface/download_intra_live.html)
+It requires to have installed OpenCV 2.4.6 to. The complete installation guide could be found here: http://www.ozbotz.org/opencv-installation/
 In a terminal, go to the intraface folder and then:
 "geany makefile"
-(geany or an other application) then, replace the code with the one I give you. Save and quit.
+(geany or an other application) then, replace the code with the one I give you. 
+If you install OpenCV somewhere other than /usr/local, please make corresponding changes in 
+the Makefile.
+Save and quit.
 "cd src"
 here, paste the robot_s_head.cpp file.
 "cd ../"
