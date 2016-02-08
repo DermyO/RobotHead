@@ -23,6 +23,7 @@
 #include <time.h>
 #include <FaceAlignment.h>
 #include <XXDescriptor.h>
+#include <fstream>
 
 using namespace std;
 
@@ -96,7 +97,34 @@ int main()
 	string winname("Demo IntraFace Tracker");
 
 	cv::namedWindow(winname);
+	
+	cv::Mat Xbase(2,49,cv::DataType<float>::type);
 
+
+
+	/*Add "basic head of the robot"*/
+	ifstream fichier("teteEnreg.txt", ios::in);
+	if(fichier)
+	{
+		char msg;
+		int cols;
+		fichier >> cols >> msg;
+		cout << cols << endl;
+		for(int di=0;di<2;di++)
+		{
+			for(int dj=0;dj<cols;dj++)
+			{
+				fichier >> Xbase.at<float>(di,dj) >> msg;
+			}
+		}
+		fichier.close();
+	}else
+	{
+		cerr << "impossible d'ouvrir le fichier"<< endl;
+		return 0;
+	}
+	/*End Add*/
+	
 	while (key!=27) // Press Esc to quit
 	{
 		cv::Mat frame;
@@ -127,15 +155,39 @@ int main()
 			// facial feature tracking
 			if (fa.Track(frame,X0,X,score) != INTRAFACE::IF_OK)
 				break;
+		
 			X0 = X;
+		}/*
+		if (score > 0.9)
+		{
+			for(int di=0;di<2;di++)
+			{
+			for(int dj=0;dj<X.cols;dj++)
+			{
+				Xbase= X;
+			}
 		}
+		}*/
 		if (score < notFace){ // detected face is not reliable
 			isDetect = true;
-			X=XPREVIOUS;
+			//TODO
+			for(int di=0;di<2;di++)
+			{
+				for(int dj=0;dj<49;dj++)
+				{
+					X0.at<float>(di,dj) = Xbase.at<float>(di,dj);
+				}
+			}
+			//X=Xbase;
+			//cout << score << endl;
+			//X0=Xbase;
+			//X=XPREVIOUS;
 		}
 		//else
 		//{
 			XPREVIOUS = X0;
+		//TEST
+		//X0=Xbase;
 			// plot facial landmarks
 			for (int i = 0; i < 9; i++) //eyebrows
 			{
@@ -184,6 +236,28 @@ int main()
 			// plot head pose
 			//drawPose(frame, hp.rot, 50);
 		//}
+		
+		/*Ajout pour retenir la "tête de base" à dessiner*/
+		ofstream fichier("teteEnregResult.txt", ios::out | ios::trunc);
+		if(!fichier)
+		{
+			cerr << "Erreur à l'ouverture !" << endl;
+			return 0;
+		}
+		else{
+			char msg=',';
+			fichier << X0.cols << msg;
+			for(int di=0;di<X0.rows;di++)
+			{
+				for(int dj=0;dj<X0.cols;dj++)
+				{
+					fichier << X0.at<float>(di,dj) << msg;
+				}
+			}
+			fichier.close();
+		}
+		/*End add*/
+		
 		cv::imshow(winname,frame2);	
 		frame2.release();
 		key = cv::waitKey(5);
@@ -193,9 +267,3 @@ int main()
 	return 0;
 
 }
-
-
-
-
-
-
