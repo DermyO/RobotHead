@@ -94,9 +94,9 @@ int main()
 	float score, notFace = 0.5;
 	cv::Mat X,X0, XPREVIOUS;
 	cv::Point EL,ER,P1,P2;
-	string winname("Demo IntraFace Tracker");
-
-	cv::namedWindow(winname);
+    string winname("Demo IntraFace Tracker");
+    const char* name= "Demo IntraFace Tracker";
+    cv::namedWindow(winname,CV_WINDOW_NORMAL);
 	
 	cv::Mat Xbase(2,49,cv::DataType<float>::type);
 
@@ -109,7 +109,7 @@ int main()
 		char msg;
 		int cols;
 		fichier >> cols >> msg;
-		cout << cols << endl;
+		//cout << cols << endl;
 		for(int di=0;di<2;di++)
 		{
 			for(int dj=0;dj<cols;dj++)
@@ -125,8 +125,16 @@ int main()
 	}
 	/*End Add*/
 	
-	while (key!=27) // Press Esc to quit
-	{
+	while (key!=1048603) // Press Esc to quit
+    {
+
+		//if 'f';, we go to fullscreen
+        if(key==1048678) cvSetWindowProperty(name, CV_WND_PROP_FULLSCREEN, CV_WINDOW_FULLSCREEN);
+		//if delete we delete fullscreen
+        /*if(key==1114111){
+			cout << "supr" << endl;
+			cvSetWindowProperty(name, CV_WND_PROP_AUTOSIZE, CV_WINDOW_AUTOSIZE);
+		}*/
 		cv::Mat frame;
 		cap >> frame; // get a new frame from camera
 		if (frame.rows == 0 || frame.cols == 0)
@@ -238,7 +246,7 @@ int main()
 		//}
 		
 		/*Ajout pour retenir la "tête de base" à dessiner*/
-		ofstream fichier("teteEnregResult.txt", ios::out | ios::trunc);
+		/*ofstream fichier("teteEnregResult.txt", ios::out | ios::trunc);
 		if(!fichier)
 		{
 			cerr << "Erreur à l'ouverture !" << endl;
@@ -255,12 +263,13 @@ int main()
 				}
 			}
 			fichier.close();
-		}
+		}*/
 		/*End add*/
 		
 		cv::imshow(winname,frame2);	
 		frame2.release();
 		key = cv::waitKey(5);
+	//	cout << key << endl;
 		count = count +1;
 	}
 
